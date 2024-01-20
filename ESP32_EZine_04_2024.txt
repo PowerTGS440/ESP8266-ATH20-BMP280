@@ -1,0 +1,361 @@
+﻿﻿REM ···············································································································································
+REM : ██████████  █████████  ███████████   ████████   ████████     ██████████            ███████████ █████ ██████   █████ ██████████              :
+REM :░░███░░░░░█ ███░░░░░███░░███░░░░░███ ███░░░░███ ███░░░░███   ░░███░░░░░█           ░█░░░░░░███ ░░███ ░░██████ ░░███ ░░███░░░░░█              :
+REM : ░███  █ ░ ░███    ░░░  ░███    ░███░░░    ░███░░░    ░███    ░███  █ ░            ░     ███░   ░███  ░███░███ ░███  ░███  █ ░               :
+REM : ░██████   ░░█████████  ░██████████    ██████░    ███████     ░██████    ██████████     ███     ░███  ░███░░███░███  ░██████                 :
+REM : ░███░░█    ░░░░░░░░███ ░███░░░░░░    ░░░░░░███  ███░░░░      ░███░░█   ░░░░░░░░░░     ███      ░███  ░███ ░░██████  ░███░░█                 :
+REM : ░███ ░   █ ███    ░███ ░███         ███   ░███ ███      █    ░███ ░   █             ████     █ ░███  ░███  ░░█████  ░███ ░   █              :
+REM : ██████████░░█████████  █████       ░░████████ ░██████████    ██████████            ███████████ █████ █████  ░░█████ ██████████              :
+REM :░░░░░░░░░░  ░░░░░░░░░  ░░░░░         ░░░░░░░░  ░░░░░░░░░░    ░░░░░░░░░░            ░░░░░░░░░░░ ░░░░░ ░░░░░    ░░░░░ ░░░░░░░░░░               :
+REM :                                                                                                                                             :
+REM :                                                                                                                                             :
+REM :                                                                                                                                             :
+REM : █████                         ███████████                                              ███████████   █████████   █████████                  :
+REM :░░███                         ░░███░░░░░███                                            ░█░░░███░░░█  ███░░░░░███ ███░░░░░███                 :
+REM : ░███████  █████ ████ ██       ░███    ░███  ██████  █████ ███ █████  ██████  ████████ ░   ░███  ░  ███     ░░░ ░███    ░░░                  :
+REM : ░███░░███░░███ ░███ ░░        ░██████████  ███░░███░░███ ░███░░███  ███░░███░░███░░███    ░███    ░███         ░░█████████                  :
+REM : ░███ ░███ ░███ ░███           ░███░░░░░░  ░███ ░███ ░███ ░███ ░███ ░███████  ░███ ░░░     ░███    ░███    █████ ░░░░░░░░███                 :
+REM : ░███ ░███ ░███ ░███           ░███        ░███ ░███ ░░███████████  ░███░░░   ░███         ░███    ░░███  ░░███  ███    ░███                 :
+REM : ████████  ░░███████  ██       █████       ░░██████   ░░████░████   ░░██████  █████        █████    ░░█████████ ░░█████████                  :
+REM :░░░░░░░░    ░░░░░███ ░░       ░░░░░         ░░░░░░     ░░░░ ░░░░     ░░░░░░  ░░░░░        ░░░░░      ░░░░░░░░░   ░░░░░░░░░                   :
+REM :            ███ ░███                                                                                                                         :
+REM :           ░░██████                                                                                                                          :
+REM :            ░░░░░░                                                                                                      no. 04/2024          :
+REM ···············································································································································
+
+ESP32 E-Zine 01/2024 download : 
+ESP32 E-Zine 02/2024 download : 
+ESP32 E-Zine 03/2024 download : 
+ESP32 E-Zine 04/2024 download : 
+
+
+W tym numerze : obsługa czujnika dual ATH10/20 + BME280
+
+
+ _______ _________          __    _______       _       ______   _______  _______  _______   _____   _______ 
+(  ___  )\__   __/|\     /|/  \  (  __   )     ( )     (  ___ \ (       )(  ____ )/ ___   ) / ___ \ (  __   )
+| (   ) |   ) (   | )   ( |\/) ) | (  )  |     | |     | (   ) )| () () || (    )|\/   )  |( (___) )| (  )  |
+| (___) |   | |   | (___) |  | | | | /   |   __| |__   | (__/ / | || || || (____)|    /   ) \     / | | /   |
+|  ___  |   | |   |  ___  |  | | | (/ /) |  (__   __)  |  __ (  | |(_)| ||  _____)  _/   /  / ___ \ | (/ /) |
+| (   ) |   | |   | (   ) |  | | |   / | |     | |     | (  \ \ | |   | || (       /   _/  ( (   ) )|   / | |
+| )   ( |   | |   | )   ( |__) (_|  (__) |     | |     | )___) )| )   ( || )      (   (__/\( (___) )|  (__) |
+|/     \|   )_(   |/     \|\____/(_______)     (_)     |/ \___/ |/     \||/       \_______/ \_____/ (_______)
+                                                                                                             
+
+                                                                                                                                                                 
+AHT10/20 + BMP280 (ESP32/ESP2866)
+
+To kolejny dwu-modułowy cyfrowy czujnik temperatury i wilgotności AHT10/20 oraz ciśnienia atmosferycznego i temperatury BOSH BMP280, 
+składający się z Aosong, I2C. Obsługuje jednoczesny dostęp online do wielu urządzeń elektronicznych lub modułów I2C. Charakteryzuje się 
+niskim zużyciem energii, pracą z napięciem DC od 2.8V do 5V (ze stabilizatorem), prędkość transmisji jest stabilna nawet na większe 
+odległości oraz szybka. Czujnik często jednak nie posiada stabilizatora napięcia, więc najbezpieczniej jest zasilić go prądem stałym 3.3V. 
+
+Parametry modułu AHT10/20 – pomiary wilgotności:
+    • zakres pomiaru wilgotności: 0 – 100% RH
+    • typowa dokładność: ±2% RH
+    • rozdzielczość: ±0,024% RH
+    • powtarzalność: ±0,1% RH
+    • czas odpowiedzi na zmiany wilgotności: 8 sekund
+    • Czas odpowiedzi na zmiany wilgotności: 8 sekund
+
+Parametry modułu AHT10/20 – pomiary temperatury:
+    • zakres pomiaru temperatury: od -40°C do 85°C
+    • typowa dokładność: ±0,3°C
+    • typowa rozdzielczość: ±0,0,1°C
+    • powtarzalność: ±0,1°C
+    • czas odpowiedzi na zmiany temperatury: 5-30 sekund
+Parametry modułu BMP280:
+    • zakres pomiarowy ciśnienia 300 ÷ 1100 hPa
+    • dokładność względna: ±0,12 hPa, (±1 m wysokości) dla zakresu 950 – 1050 hPa @25°C
+    • dokładność absolutna: ±1 hPa dla zakresu 950 – 1050 hPa @0 – 40°C
+    • zakres pomiarowy temperatury: od -40°C do 85°C
+    • dokładność pomiaru temperatury: ±1,0°C
+    • zakres pomiarowy temperatury o pełnej dokładności: od 0°C do 65°C
+    • dokładność pomiaru temperatury: ±0,5°C w przedziale od 0°C do 65°C
+    • niski pobór prądu: 2,7 µA w trybie ultra low-power, do 0,1 µA w uśpieniu
+    • kompensacja wpływu temperatury na pomiar ciśnienia
+
+Do poprawnej pracy czujnika potrzebne są dwie biblioteki: Adafruit_BME280 oraz AHT10. Biblioteki możemy pobrać klikając w link i ręcznie przenieść 
+do katalogu Library lub za pomocą narzędzia ArduinoIDE.
+
+Adafruit_BME280 download link : https://github.com/adafruit/Adafruit_BME280_Library
+Adafruit_ATHX10 download link : https://github.com/adafruit/Adafruit_AHTX0
+
+Czujnik ten komunikuje się za pomocą protokołu komunikacyjnego I2C, więc okablowanie jest bardzo proste, analogiczne jak w przypadku poprzednio 
+omawianego czujnika BME280/BMP280. Możesz użyć domyślnych pinów I2C dla ESP32 i ESP8266 jak w poniższej tabeli (pobrane biblioteki działają 
+także poprawnie dla Arduino UNO, Arduino Nano oraz Arduino MEGA).
+
+Poniższa tabelka przedstawia jak podłączyć piny.
+
++----------------------------------------------------------------+
++      Czujnik BMP280     +        ES32       +     ESP8266      +
++----------------------------------------------------------------+
++      WIN (zasilanie)    +    3.3 V          +    3.3 V         +
++      GND (masa)	  +    GND            +    GND           +
++      SCL                +    GPIO_22        +    GPIO_5 (D1)   +
++      SDA                +    GPIO_21        +    GPIO_4 (D2)   +
++----------------------------------------------------------------+
+
+Czujnik BME280 podłączamy 4 przewodami z ESP32.
+
+BME280 VCC z zasilaniem 3.3V w ESP32
+BME280 GDN z masą w ESP32
+BME280 SDI z GPIO21 (SDA) w ESP32
+BME280 SCK z GPIO22 (SCL) w ESP32
+
+Oznaczenia na czujniku BME280 mogą być różne, w zależnośni od producenta układu, SDI to SDA, SCK to SCL. Poniżej znajduje się szkic 
+programu dla ArduinoIDE, wykorzystujący czujnik do odczytu temperatury, wilgotności, oraz ciśnienia na postawie którego szacowana jest 
+wysokość położenia nad poziomem morza. Nie jest to wartość dokładna, może odbiegać od rzeczywistego położenia.
+
+   
+██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+Wytnij koj poniżej tej linii
+
+// █████████████████████████████████████████████████████
+//
+// ESP32/ESP8266 BlackBook by PowerTGS (2024)
+//
+// author : Tomasz Majcher 
+// e-mail : powerTGS440@gmail.com
+// phone  : +48 668 082121
+//
+// █████████████████████████████████████████████████████
+//
+// ATH10/20 + BMP280 demo file
+//
+// source file      : sourcce/sensor/ah10/aht10.ino
+// device           : esp32/esp2866/arduino uno/arduino nano/arduono mega
+// code platform    : ArduinoIDE
+// 
+// █████████████████████████████████████████████████████
+// M A K R O
+// █████████████████████████████████████████████████████
+//
+// PROGMEM to funkcja Arduino AVR, która została przeniesiona do ESP8266, aby zapewnić 
+// kompatybilność z istniejącymi bibliotekami Arduino, a także zaoszczędzić pamięć RAM. 
+//
+// memory used 29920 / 80192 bytes (36%) bez PROGMEM dla Serial.print
+// memory used 28760 / 80192 bytes (35%) z PROGMEM dla Serial.print
+// memory used 28740 / 80192 bytes (35%) z wyłaczonym SERIAL
+//
+// już w tak małym szkicu jak ten, różnica zajętej pamięci RAM jest ogromna, ponad 1kB,
+// więc warto od samego początku optymalizować kod, niż potem szukać sposobu na wolny
+// RAM bo go zabrakło i szkic nie będzie działać. Jak widać wyłączenie monitora portu
+// szeregowego to oszczędność tylko 20 bajtów, oznacza to jedno : bardzo dobrze 
+// zoptymalizowane polecenia dla wyświetlania komunikatów. Czemu stosuje makra ? 
+// bo potem i tak wyłącze SERIAL MONITOR jedną komendą : #define SERIAL false, nie będę
+// z niego korzystał bo wartości będę wizualizował na ekranie graficzny, lub urządzenie
+// będzie pracowało w trybie odczytywania wartości i przesyłania do innego.
+//
+// █████████████████████████████████████████████████████
+
+
+                                    
+#define FPSTR(pstr_pointer) (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
+#define F(string_literal) (FPSTR(PSTR(string_literal)))
+
+#define SERIAL        true                         // SERIAL włączony
+#define SERIAL_SPEED  115200                       // prędkość SERIAL
+#define LOOP_DELAY    5000                         // opóźnienie pętli LOOP 
+
+// █████████████████████████████████████████████████████
+// B I B L I O T E K I
+// █████████████████████████████████████████████████████                
+
+#include <Wire.h>
+#include <Adafruit_BMP280.h>
+#include <AHT10.h>
+
+// █████████████████████████████████████████████████████
+// O B I E K T   K L A S Y   B M E 2 8 0   O R A Z   A H T 2 0
+// █████████████████████████████████████████████████████
+
+Adafruit_BMP280 bmp;
+AHT10 myAHT20(AHT10_ADDRESS_0X38, AHT20_SENSOR);
+
+// █████████████████████████████████████████████████████
+// Z M I E N N E   G L O B A L N E
+// █████████████████████████████████████████████████████
+
+struct ATH_SENSOR                     // struktura dla czujnika ATH10/ATH20
+{
+    float   temperatura = 0;  
+    float   wilgotnosc = 0;  
+}
+ath_sensor;
+
+struct BMP_SENSOR                     // struktura dla czujnika BMP280
+{
+    float temperatura = 0;
+    float cisnienie = 0;
+}
+bmp_sensor;
+
+// █████████████████████████████████████████████████████
+// D E K L A R A C J E   F U N K C J I
+// █████████████████████████████████████████████████████
+
+void Read_ATH_Sensor (float &temp, float &humi);
+void Read_BMP_Sensor (float &temp, float &pres);
+void Show_ATH_Sensor (float &temp, float &humi);
+void Show_BMP_Sensor (float &temp, float &pres);
+
+// █████████████████████████████████████████████████████
+// S E T U P
+// █████████████████████████████████████████████████████
+
+void setup() 
+{
+    #if SERIAL
+        Serial.begin(115200);        
+    #endif
+
+    // ------------------------------------------------------------- //
+    // inicjalizacja sensora AHT10/20
+    // ------------------------------------------------------------- //
+    
+    while (myAHT20.begin() != true) 
+    {
+        #if SERIAL
+            Serial.printf_P( PSTR ("\n\nSensor AHT20 nie jest podłączony") ); 
+        #endif
+        delay(LOOP_DELAY);
+    }
+    #if SERIAL
+        Serial.printf_P( PSTR ("\nPomyślnie zainicjalizowano czujnik AHT20") );
+    #endif
+
+    // ------------------------------------------------------------- //
+    // inicjalizacja sensora BMP280
+    // ------------------------------------------------------------- //
+
+    if (!bmp.begin()) 
+    {     
+      #if SERIAL
+          Serial.printf_P( PSTR ("Nie można odnaleźć czujnika BMP280") );
+          Serial.printf_P( PSTR ("Sprawdź podłączenia do urządzenia!") );
+      #endif      
+      while (1);
+    }
+    else
+    {
+        #if SERIAL
+            Serial.printf_P( PSTR ("Pomyślnie zainicjalizowano czujnik BME280") );          
+        #endif
+    }  
+    
+    // ------------------------------------------------------------- //
+    // ustawienia domyślne dla sensora BMP280
+    // ------------------------------------------------------------- //
+  
+    bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     /* tryb pracy */
+                    Adafruit_BMP280::SAMPLING_X2,     /* próbkowanie temperatury */
+                    Adafruit_BMP280::SAMPLING_X16,    /* próbkowanie ciśnienia */
+                    Adafruit_BMP280::FILTER_X16,      /* filtracja */
+                    Adafruit_BMP280::STANDBY_MS_500); /* czuwanie */
+}
+
+// █████████████████████████████████████████████████████
+// L O O P
+// █████████████████████████████████████████████████████
+
+
+void loop() 
+{
+    #if SERIAL
+        Serial.printf_P( PSTR ("\nRozpoczynam pobieranie wartości z czujników : ATH10/20 oraz BMP280\n") );
+    #endif
+  
+    Read_ATH_Sensor(ath_sensor.temperatura, ath_sensor.wilgotnosc);
+    Show_ATH_Sensor(ath_sensor.temperatura, ath_sensor.wilgotnosc);
+    
+    Read_BMP_Sensor(bmp_sensor.temperatura, bmp_sensor.cisnienie);
+    Show_BMP_Sensor(bmp_sensor.temperatura, bmp_sensor.cisnienie);
+ 
+    delay(LOOP_DELAY);
+}
+
+// █████████████████████████████████████████████████████
+// R E A D   A T H 2 0   S E N S O R
+// █████████████████████████████████████████████████████
+// funkcja odczytuje wartości z czujnika ATH20
+// zwraca wartości temperatury i wilgotności
+// na wejsciu otrzymuje adresy struktury ath_sensor 
+// █████████████████████████████████████████████████████
+
+void Read_ATH_Sensor (float &temp, float &humi)
+{
+    temp = myAHT20.readTemperature();
+    humi = myAHT20.readHumidity();
+}
+
+// █████████████████████████████████████████████████████
+// R E A D   B M P   S E N S O R
+// █████████████████████████████████████████████████████
+// funkcja odczytuje wartości z czujnika ATH20
+// zwraca wartości temperatury i wilgotności
+// na wejsciu otrzymuje adresy struktury ath_sensor 
+// █████████████████████████████████████████████████████
+
+void Read_BMP_Sensor (float &temp, float &pres)
+{
+    temp = bmp.readTemperature();
+    pres = bmp.readPressure();
+}
+
+// █████████████████████████████████████████████████████
+// S H O W   A T H   S E N S O R
+// █████████████████████████████████████████████████████
+// funkcja odczytuje wartości z czujnika ATH20
+// na wejsciu otrzymuje adresy struktury ath_sensor 
+// █████████████████████████████████████████████████████
+
+void Show_ATH_Sensor (float &temp, float &humi)
+{
+    #if SERIAL
+        Serial.printf_P( PSTR ("[ATH_Sensor] Temperatura = %.02f *C\n"), temp);
+        Serial.printf_P( PSTR ("[ATH Sensor] Wilgotnosc  = %.02f %RH\n"), humi);
+    #endif
+}
+
+// █████████████████████████████████████████████████████
+// S H O W   B M P   S E N S O R
+// █████████████████████████████████████████████████████
+// funkcja odczytuje wartości z czujnika BMP280
+// na wejsciu otrzymuje adresy struktury ath_sensor 
+// █████████████████████████████████████████████████████
+
+void Show_BMP_Sensor (float &temp, float &pres)
+{
+    #if SERIAL
+        Serial.printf_P( PSTR ("[BMP_Sensor] Temperatura = %.02f *C\n"), temp);
+        Serial.printf_P( PSTR ("[BMP Sensor] Cisnienie  = %.02f hPa\n"), pres / 100 );
+    #endif  
+}
+// █████████████████████████████████████████████████████
+// END OF FILE : src/sensor/ath10/ath10.ino
+// █████████████████████████████████████████████████████
+
+Wytnij kod do powyżej tej Linii
+██████████████████████████████████████████████████████████████████████████████████████
+
+
+Źródło szkicu (dot. wersji płatnej ESP BlackBook) znajduje się w katalogu: source/sensor/bme280. 
+Po skompilowaniu szkicu i wgraniu kodu do ESP32/2866 na monitorze portu szeregowego zobaczymy działanie programu.
+
+17:09:24.821 -> Rozpoczynam pobieranie wartości z czujników : ATH10/20 oraz BMP280
+17:09:24.959 -> [ATH_Sensor] Temperatura = 26.30 *C
+17:09:24.959 -> [ATH Sensor] Wilgotnosc  = 33.29 RH
+17:09:24.992 -> [BMP_Sensor] Temperatura = 26.76 *C
+17:09:24.992 -> [BMP Sensor] Cisnienie  = 994.57 hPa
+
+██████████████████████████████████████████████████████████████████████████████████████
+
+Lubię korzystać w projektach z tego czujnika, ma swoje plusy. Jest on dokładny i precyzyjny, dzięki zintegrowaniu 
+na jednej maleńkiej płytce ATH10/20 oraz BMP280 otrzymujemy mały bonus. Temperaturę możemy odczytać z jednego i z drugiego, 
+wyznaczyć wartość średnią i na tej wartości bazować. Dodatkowy atut to praca od -40°C do 85°C, poznamy jeszcze inne czujniki. 
+Ja wykorzystam do projektu 4 różne, każdy z nich będzie w innym miejscu : w spiżarni, na zewnątrz domu, w garażu, wewnątrz domu. 
+Transmisja między tymi urządzeniami z czujnikami (SLAVE) a urządzeniem matką (MASTER) będzie się odbywać protokołem ESP MESH, 
+jak to zrobić przeczytacie w mojej książce ESP BlackBook.
+
+██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
